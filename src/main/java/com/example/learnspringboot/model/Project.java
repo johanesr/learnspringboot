@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
@@ -16,7 +17,7 @@ public class Project {
     private String projectName;
     @NotBlank(message = "Project Identifier is Required!")
     @Size(min=4, max=5, message = "Please use 4 to 5 characters!")
-    @Column(updatable = false, unique = true)
+    @Column(updatable = false, unique = true) //Sets constraint at a database level
     private String projectIdentifier;
     @NotBlank(message = "Project Description is Required!")
     private String projectDescription;
