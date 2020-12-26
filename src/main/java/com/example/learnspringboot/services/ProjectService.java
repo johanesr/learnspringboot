@@ -1,5 +1,6 @@
 package com.example.learnspringboot.services;
 
+import com.example.learnspringboot.exceptions.ProjectIdException;
 import com.example.learnspringboot.model.Project;
 import com.example.learnspringboot.repositories.ProjectRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,11 @@ public class ProjectService {
     private ProjectRepo projectRepo;
 
     public Project saveOrUpdateProject(Project project) {
-        return projectRepo.save(project);
+        try {
+            project.setProjectIdentifier(project.getProjectIdentifier().toUpperCase());
+            return projectRepo.save(project);
+        } catch (Exception e) {
+            throw new ProjectIdException("Project ID '" + project.getProjectIdentifier().toUpperCase() + "' already exist");
+        }
     }
 }
